@@ -10,16 +10,19 @@ use App\Models\Actions\Skill;
 class FireBall extends Skill
 {
 	
-	private $aoe         = FALSE;	
+	private $aoe         = FALSE;
 	
 	CONST BASE_DAMAGE    = 5;
 	CONST ELEMENT 		 = 'fire';
 
+	public $damage;
+
 	public function applyTo(Being $target)
 	{
-		$damage = self::BASE_DAMAGE;
-		if ($target->isDefending()) $damage = ceil($damage / 2);
-		$target->current_hp = (int)max(0, $target->current_hp - $damage);
+		$this->damage = self::BASE_DAMAGE;
+		if ($target->isDefending()) $this->damage = ceil($this->damage / 2);
+		$target->current_hp = (int)max(0, $target->current_hp - $this->damage);
+		return $this;
 	}
 
 }

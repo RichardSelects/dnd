@@ -4,14 +4,19 @@ namespace App\Models\Beings;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Traits\Rollable;
+
 class Being extends Model
 {
     
+	use Rollable;
+
 	CONST BASE_DAMAGE    = 1;
 	protected $guarded   = [ 'id', 'created_at', 'updated_at' ];
-	protected $action;
 	protected $attacing  = FALSE;
 	protected $defending = FALSE;
+
+	public $action;
 
 	public function attacks(Being $target)
 	{

@@ -20,6 +20,7 @@ trait Caster
 		{
 			$this->action->applyTo($target);
 		}
+		return $this;
 	}
 
 	public function self()
@@ -28,11 +29,13 @@ trait Caster
 		{
 			$this->action->applyTo($this);
 		}
+		return $this;
 	}
 
 	public function here()
 	{
 		$this->action->apply();
+		return $this;
 	}
 
 }

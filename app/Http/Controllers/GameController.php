@@ -19,10 +19,26 @@ class GameController extends Controller
 		$barbarian = Barbarian::find(1);
 		$sorcerer = Sorcerer::find(2);
 
-		//$sorcerer->casts(new FireBall)->at($barbarian);
-		$barbarian->defends();
-		//$barbarian->attacks($sorcerer);
-		$sorcerer->casts(new FireBall)->at($barbarian);
+		
+		if ($barbarian->d20()->passes(8))
+		{
+			$barbarian->defends();
+			echo "{$barbarian->name} is defending against incoming attacks.<br />";
+		}
+		else
+		{
+			echo "{$barbarian->name} attempts to defend.<br />";
+		}
+
+		if ($sorcerer->d20()->passes(15))
+		{
+			$sorcerer->casts(new FireBall)->at($barbarian);
+			echo "{$sorcerer->name} casts {$sorcerer->action->getName()} and hits {$barbarian->name} for {$sorcerer->action->damage} damage.";
+		}
+		else
+		{
+			echo "{$sorcerer->name} casts FireBall at {$barbarian->name} but misses. ({$sorcerer->getLastRoll()}/20)";
+		}
 		
 		dd($barbarian);
 
